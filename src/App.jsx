@@ -15,73 +15,158 @@ import {
   Container, 
   Cpu,
   FileText,
-  Search
+  Search,
+  Globe
 } from 'lucide-react';
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
+  const [lang, setLang] = useState('fr'); // 'fr' ou 'en'
 
-  // Données extraites de votre CV
-  const profile = {
-    name: "Saadia AKERKOUCH",
-    title: "Junior AI & Data Science Engineer",
-    bio: "Élève ingénieure en Data Science & IoT à l'ENSIAS. Passionnée par l'IA générative, les systèmes intelligents et le MLOps. Je recherche un stage de fin d'études (4-6 mois) à partir de février 2026 pour contribuer à des projets innovants.",
-    location: "Rabat, Maroc",
-    email: "mailto:saadiaakerkouch2003@gmail.com",
+  // --- CONTENU BILINGUE ---
+  const content = {
+    fr: {
+      nav: { skills: "Compétences", projects: "Projets", contact: "Contact" },
+      hero: {
+        badge: "Recherche stage fin d'études (Fév 2026)",
+        title: "Ingénieure",
+        subtitle: "AI & Data Science",
+        bio: "Élève ingénieure en Data Science & IoT à l'ENSIAS. Passionnée par l'IA générative, les systèmes intelligents et le MLOps. Je recherche un stage de fin d'études (4-6 mois) à partir de février 2026.",
+        cta: "Me contacter",
+        linkedin: "LinkedIn",
+        github: "GitHub"
+      },
+      skills: {
+        title: "Arsenal Technique",
+        subtitle: "Une combinaison solide de Data Science avancée, d'ingénierie logicielle et de pratiques MLOps modernes.",
+        categories: [
+          { name: "IA & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG"] },
+          { name: "DevOps & Cloud", items: ["Docker", "Kubernetes", "Jenkins", "MLflow", "GitHub Actions", "SonarQube"] },
+          { name: "Backend & Data", items: ["Python", "Java", "Flask", "FastAPI", "Neo4j (Graph DB)", "SQL", "NoSQL", "Hadoop/Spark"] }
+        ]
+      },
+      projects: {
+        title: "Projets Sélectionnés",
+        subtitle: "Expériences professionnelles et projets académiques démontrant l'application de l'IA à des problèmes réels.",
+        viewGithub: "Voir tout sur GitHub",
+        items: [
+          {
+            title: "Plateforme de Recrutement Intelligente (LLMs)",
+            role: "Stage NLP @ 3D Smart Factory",
+            desc: "Développement Full-stack d'une application web intelligente automatisant le workflow de recrutement. Génération de tests personnalisés via LLM.",
+            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
+            icon: <User size={24} />
+          },
+          {
+            title: "Plateforme ERP & Classification de CV",
+            role: "Stage Data Eng. @ INTELLCAP",
+            desc: "Conception d'une architecture microservices. Développement d'un classificateur de CV avec BERT (96% précision) déployé sur Kubernetes.",
+            tech: ["BERT", "Kubernetes", "Microservices", "Docker", "Agile"],
+            icon: <Cpu size={24} />
+          },
+          {
+            title: "Exploration d'Articles Scientifiques (RAG)",
+            role: "Projet Académique",
+            desc: "Plateforme d'exploration intelligente d'articles scientifiques utilisant des Knowledge Graphs et Graph RAG. Chatbot pour résumer les insights.",
+            tech: ["Neo4j", "Graph RAG", "SpaCy", "NLTK", "LLM"],
+            icon: <Search size={24} />
+          },
+          {
+            title: "Pipeline MLOps End-to-End",
+            role: "Projet Académique",
+            desc: "Pipeline complet : entraînement, déploiement et monitoring. Versioning des données/modèles et déploiement scalable.",
+            tech: ["MLflow", "FastAPI", "Docker", "GitHub Actions", "SonarQube"],
+            icon: <Terminal size={24} />
+          }
+        ]
+      },
+      contact: {
+        title: "Prête à collaborer",
+        desc: "Je suis à la recherche d'un **stage de fin d'études de 4 à 6 mois** à partir de février 2026. Si vous cherchez une ingénieure passionnée par l'IA, discutons-en !",
+        emailBtn: "Envoyer un email",
+        linkedinBtn: "LinkedIn",
+        copyright: "© 2025 Saadia AKERKOUCH. Développé avec React & Tailwind CSS."
+      }
+    },
+    en: {
+      nav: { skills: "Skills", projects: "Projects", contact: "Contact" },
+      hero: {
+        badge: "Seeking End-of-Studies Internship (Feb 2026)",
+        title: "Engineer",
+        subtitle: "AI & Data Science",
+        bio: "Engineering student in Data Science & IoT at ENSIAS. Passionate about Generative AI, intelligent systems, and MLOps. Seeking a 4-6 month internship starting February 2026.",
+        cta: "Contact Me",
+        linkedin: "LinkedIn",
+        github: "GitHub"
+      },
+      skills: {
+        title: "Technical Arsenal",
+        subtitle: "A strong combination of advanced Data Science, Software Engineering, and modern MLOps practices.",
+        categories: [
+          { name: "AI & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG"] },
+          { name: "DevOps & Cloud", items: ["Docker", "Kubernetes", "Jenkins", "MLflow", "GitHub Actions", "SonarQube"] },
+          { name: "Backend & Data", items: ["Python", "Java", "Flask", "FastAPI", "Neo4j (Graph DB)", "SQL", "NoSQL", "Hadoop/Spark"] }
+        ]
+      },
+      projects: {
+        title: "Selected Projects",
+        subtitle: "Professional experiences and academic projects demonstrating the application of AI to real-world problems.",
+        viewGithub: "View all on GitHub",
+        items: [
+          {
+            title: "Intelligent Recruitment Platform (LLMs)",
+            role: "NLP Intern @ 3D Smart Factory",
+            desc: "Full-stack development of an intelligent web app automating recruitment workflows. Personalized test generation using LLMs.",
+            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
+            icon: <User size={24} />
+          },
+          {
+            title: "ERP Platform & CV Classification",
+            role: "Data Eng. Intern @ INTELLCAP",
+            desc: "Designed microservices architecture for an ERP. Developed a CV classification microservice using fine-tuned BERT (96% accuracy) on Kubernetes.",
+            tech: ["BERT", "Kubernetes", "Microservices", "Docker", "Agile"],
+            icon: <Cpu size={24} />
+          },
+          {
+            title: "IT Scientific Paper Exploration (RAG)",
+            role: "Academic Project",
+            desc: "Intelligent exploration platform for scientific papers using Knowledge Graphs and Graph RAG. Chatbot for summarizing key insights.",
+            tech: ["Neo4j", "Graph RAG", "SpaCy", "NLTK", "LLM"],
+            icon: <Search size={24} />
+          },
+          {
+            title: "End-to-End MLOps Pipeline",
+            role: "Academic Project",
+            desc: "Built a complete pipeline for training, deployment, and monitoring. Data/Model versioning and scalable deployment.",
+            tech: ["MLflow", "FastAPI", "Docker", "GitHub Actions", "SonarQube"],
+            icon: <Terminal size={24} />
+          }
+        ]
+      },
+      contact: {
+        title: "Ready to Collaborate",
+        desc: "I am looking for a **4-6 month end-of-studies internship** starting February 2026. If you are looking for an engineer passionate about AI, let's talk!",
+        emailBtn: "Send Email",
+        linkedinBtn: "LinkedIn",
+        copyright: "© 2025 Saadia AKERKOUCH. Built with React & Tailwind CSS."
+      }
+    }
+  };
+
+  const t = content[lang]; // Sélectionne le contenu en fonction de la langue
+
+  // Données communes
+  const common = {
     social: {
       github: "https://github.com/Saadia-Akerkouch",
-      linkedin: "https://www.linkedin.com/in/saadia-akerkouch", // Lien standard déduit
+      linkedin: "https://www.linkedin.com/in/saadia-akerkouch",
+      email: "mailto:saadiaakerkouch2003@gmail.com",
     },
-    skills: [
-      { 
-        name: "IA & Data Science", 
-        icon: <Brain size={20} />, 
-        items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG"] 
-      },
-      { 
-        name: "DevOps & Cloud", 
-        icon: <Container size={20} />, 
-        items: ["Docker", "Kubernetes", "Jenkins", "MLflow", "GitHub Actions", "SonarQube"] 
-      },
-      { 
-        name: "Backend & Data", 
-        icon: <Database size={20} />, 
-        items: ["Python", "Java", "Flask", "FastAPI", "Neo4j (Graph DB)", "SQL", "NoSQL", "Hadoop/Spark"] 
-      }
-    ],
-    projects: [
-      {
-        title: "Intelligent Recruitment Platform (LLMs)",
-        role: "NLP Intern @ 3D Smart Factory",
-        desc: "Développement Full-stack d'une application web intelligente automatisant le workflow de recrutement. Génération de tests personnalisés via LLM.",
-        tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
-        icon: <User size={24} />
-      },
-      {
-        title: "ERP Platform & CV Classification",
-        role: "AI & Data Eng. Intern @ INTELLCAP",
-        desc: "Conception d'une architecture microservices pour un ERP. Développement d'un microservice de classification de CV utilisant un modèle BERT fine-tuné (96% précision) et déployé sur Kubernetes.",
-        tech: ["BERT", "Kubernetes", "Microservices", "Docker", "Agile"],
-        icon: <Cpu size={24} />
-      },
-      {
-        title: "IT Scientific Paper Exploration (RAG)",
-        role: "Projet Académique",
-        desc: "Plateforme d'exploration intelligente d'articles scientifiques utilisant des Knowledge Graphs et Graph RAG. Chatbot pour résumer et connecter les insights clés.",
-        tech: ["Neo4j", "Graph RAG", "SpaCy", "NLTK", "LLM"],
-        icon: <Search size={24} />
-      },
-      {
-        title: "MLOps Pipeline End-to-End",
-        role: "Projet Académique",
-        desc: "Mise en place d'un pipeline complet : entraînement, déploiement et monitoring. Versioning des données et modèles, et déploiement scalable.",
-        tech: ["MLflow", "FastAPI", "Docker", "GitHub Actions", "SonarQube"],
-        icon: <Terminal size={24} />
-      }
-    ]
+    skillIcons: [<Brain size={20} />, <Container size={20} />, <Database size={20} />]
   };
 
   const toggleTheme = () => setDarkMode(!darkMode);
+  const toggleLang = () => setLang(lang === 'fr' ? 'en' : 'fr');
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900 text-slate-100' : 'bg-gray-50 text-gray-900'} font-sans`}>
@@ -90,10 +175,18 @@ const Portfolio = () => {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${darkMode ? 'bg-slate-900/90 border-b border-slate-800' : 'bg-white/90 border-b border-gray-200'} backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-bold text-xl tracking-tighter">S. Akerkouch<span className="text-emerald-500">.</span></span>
-          <div className="flex items-center gap-6">
-            <a href="#about" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">Compétences</a>
-            <a href="#projects" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">Projets</a>
-            <a href="#contact" className="hover:text-emerald-500 transition-colors text-sm font-medium">Contact</a>
+          <div className="flex items-center gap-4 md:gap-6">
+            <a href="#about" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.skills}</a>
+            <a href="#projects" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.projects}</a>
+            <a href="#contact" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.contact}</a>
+            
+            <div className="h-6 w-px bg-gray-500/30 hidden md:block"></div>
+
+            <button onClick={toggleLang} className="flex items-center gap-1 text-sm font-bold hover:text-emerald-500 transition-colors px-2 py-1 rounded">
+              <Globe size={16} />
+              {lang.toUpperCase()}
+            </button>
+            
             <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-200/20 transition-colors">
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -103,42 +196,40 @@ const Portfolio = () => {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative overflow-hidden">
-        {/* Background Decorative Elements */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 animate-fade-in-up">
             <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-emerald-100 text-emerald-700 border-emerald-200'}`}>
-              Recherche stage fin d'études (Fév 2026)
+              {t.hero.badge}
             </div>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              Ingénieure <br />
+              {t.hero.title} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
-                AI & Data Science
+                {t.hero.subtitle}
               </span>
             </h1>
             <p className={`text-lg max-w-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-              {profile.bio}
+              {t.hero.bio}
             </p>
             
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href={profile.social.github} target="_blank" rel="noreferrer" className={`flex items-center gap-2 px-5 py-3 rounded-lg transition-all ${darkMode ? 'bg-slate-800 hover:bg-slate-700 text-white' : 'bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 shadow-sm'}`}>
+              <a href={common.social.github} target="_blank" rel="noreferrer" className={`flex items-center gap-2 px-5 py-3 rounded-lg transition-all ${darkMode ? 'bg-slate-800 hover:bg-slate-700 text-white' : 'bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 shadow-sm'}`}>
                 <Github size={20} />
-                <span>GitHub</span>
+                <span>{t.hero.github}</span>
               </a>
-              <a href={profile.social.linkedin} target="_blank" rel="noreferrer" className={`flex items-center gap-2 px-5 py-3 rounded-lg transition-all ${darkMode ? 'bg-[#0077b5] hover:bg-[#006396] text-white' : 'bg-[#0077b5] hover:bg-[#006396] text-white shadow-sm'}`}>
+              <a href={common.social.linkedin} target="_blank" rel="noreferrer" className={`flex items-center gap-2 px-5 py-3 rounded-lg transition-all ${darkMode ? 'bg-[#0077b5] hover:bg-[#006396] text-white' : 'bg-[#0077b5] hover:bg-[#006396] text-white shadow-sm'}`}>
                 <Linkedin size={20} />
-                <span>LinkedIn</span>
+                <span>{t.hero.linkedin}</span>
               </a>
-              <a href={profile.email} className={`flex items-center gap-2 px-5 py-3 rounded-lg border transition-all ${darkMode ? 'border-slate-700 hover:border-emerald-500 text-slate-300' : 'border-gray-200 hover:border-emerald-500 text-gray-700'}`}>
+              <a href={common.social.email} className={`flex items-center gap-2 px-5 py-3 rounded-lg border transition-all ${darkMode ? 'border-slate-700 hover:border-emerald-500 text-slate-300' : 'border-gray-200 hover:border-emerald-500 text-gray-700'}`}>
                 <FileText size={20} />
-                <span>Me contacter</span>
+                <span>{t.hero.cta}</span>
               </a>
             </div>
           </div>
 
-          {/* Abstract Visualization of "Data/AI" */}
           <div className="relative hidden md:flex items-center justify-center h-full">
              <div className={`relative w-80 h-80 rounded-2xl rotate-3 border-4 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'} flex items-center justify-center shadow-2xl`}>
                 <div className={`absolute inset-0 bg-grid-slate-700/20 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]`}></div>
@@ -166,17 +257,17 @@ const Portfolio = () => {
       <section id="about" className={`py-20 ${darkMode ? 'bg-slate-800/50' : 'bg-gray-100'}`}>
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Arsenal Technique</h2>
+            <h2 className="text-3xl font-bold mb-4">{t.skills.title}</h2>
             <p className={`max-w-2xl mx-auto ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-              Une combinaison solide de Data Science avancée, d'ingénierie logicielle et de pratiques MLOps modernes.
+              {t.skills.subtitle}
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {profile.skills.map((skill, index) => (
+            {t.skills.categories.map((skill, index) => (
               <div key={index} className={`p-8 rounded-2xl border transition-all hover:-translate-y-2 hover:shadow-xl ${darkMode ? 'bg-slate-900 border-slate-700 hover:border-emerald-500/50' : 'bg-white border-gray-200 shadow-sm hover:border-emerald-500/50'}`}>
                 <div className="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 mb-6">
-                  {skill.icon}
+                  {common.skillIcons[index]}
                 </div>
                 <h3 className="text-xl font-bold mb-4">{skill.name}</h3>
                 <div className="flex flex-wrap gap-2">
@@ -197,18 +288,18 @@ const Portfolio = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div>
-              <h2 className="text-4xl font-bold mb-4">Projets Sélectionnés</h2>
+              <h2 className="text-4xl font-bold mb-4">{t.projects.title}</h2>
               <p className={`max-w-xl ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-                Expériences professionnelles et projets académiques démontrant l'application de l'IA à des problèmes réels.
+                {t.projects.subtitle}
               </p>
             </div>
-            <a href={profile.social.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 font-medium group">
-              Voir tout sur GitHub <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+            <a href={common.social.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 font-medium group">
+              {t.projects.viewGithub} <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {profile.projects.map((project, index) => (
+            {t.projects.items.map((project, index) => (
               <div key={index} className={`group rounded-2xl p-8 border transition-all duration-300 ${darkMode ? 'bg-slate-800/30 border-slate-700 hover:bg-slate-800 hover:border-emerald-500/50' : 'bg-white border-gray-200 hover:shadow-lg hover:border-emerald-500/50'}`}>
                 <div className="flex justify-between items-start mb-6">
                   <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900 text-emerald-400' : 'bg-emerald-50 text-emerald-600'}`}>
@@ -248,24 +339,26 @@ const Portfolio = () => {
           <div className="inline-block p-4 rounded-full bg-emerald-500/10 text-emerald-500 mb-8">
             <Mail size={32} />
           </div>
-          <h2 className="text-4xl font-bold mb-6">Prête à collaborer</h2>
+          <h2 className="text-4xl font-bold mb-6">{t.contact.title}</h2>
+          {/* Markdown-like rendering for bold text in description */}
           <p className={`text-lg mb-10 ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            Je suis à la recherche d'un <strong>stage de fin d'études de 4 à 6 mois</strong> à partir de février 2026.
-            Si vous cherchez une ingénieure passionnée par l'IA et le Data Engineering, discutons-en !
+            {t.contact.desc.split('**').map((part, i) => 
+              i % 2 === 1 ? <strong key={i} className="text-emerald-500 font-semibold">{part}</strong> : part
+            )}
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href={profile.email} className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all hover:scale-105 shadow-lg shadow-emerald-600/20">
-              Envoyer un email
+            <a href={common.social.email} className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all hover:scale-105 shadow-lg shadow-emerald-600/20">
+              {t.contact.emailBtn}
             </a>
-            <a href={profile.social.linkedin} target="_blank" rel="noreferrer" className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full font-bold border transition-all ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+            <a href={common.social.linkedin} target="_blank" rel="noreferrer" className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full font-bold border transition-all ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
               <Linkedin size={20} />
-              LinkedIn
+              {t.contact.linkedinBtn}
             </a>
           </div>
           
           <div className="mt-16 pt-8 border-t border-slate-800/50 text-sm text-slate-500">
-            © {new Date().getFullYear()} Saadia AKERKOUCH. Développé avec React & Tailwind CSS.
+            {t.contact.copyright}
           </div>
         </div>
       </section>
