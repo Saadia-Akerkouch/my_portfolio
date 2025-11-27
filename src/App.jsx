@@ -16,17 +16,21 @@ import {
   Cpu,
   FileText,
   Search,
-  Globe
+  Globe,
+  Award,
+  Eye,
+  X 
 } from 'lucide-react';
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
-  const [lang, setLang] = useState('fr'); // 'fr' ou 'en'
+  const [lang, setLang] = useState('fr');
+  const [selectedCert, setSelectedCert] = useState(null);
 
   // --- CONTENU BILINGUE ---
   const content = {
     fr: {
-      nav: { skills: "Compétences", projects: "Projets", contact: "Contact" },
+      nav: { skills: "Compétences", projects: "Projets", certs: "Certifications", contact: "Contact" },
       hero: {
         badge: "Recherche stage fin d'études (Fév 2026)",
         title: "Ingénieure",
@@ -80,6 +84,41 @@ const Portfolio = () => {
           }
         ]
       },
+      certs: {
+        title: "Certifications & Apprentissage",
+        subtitle: "Un engagement constant dans la veille technologique et la maîtrise de nouveaux outils.",
+        viewCert: "Voir le certificat",
+        items: [
+          {
+            title: "Big Data & AI Bootcamp",
+            issuer: "Dlytica Academy",
+            date: "Sept 2025",
+            desc: "Formation intensive de 16h sur les technologies Big Data et l'IA.",
+            file: "/certificats/dlytica.jpg" 
+          },
+          {
+            title: "NLP & Text Mining",
+            issuer: "Simplilearn",
+            date: "Août 2024",
+            desc: "Spécialisation sur les techniques de traitement du langage naturel.",
+            file: "/certificats/nlp-simplilearn.jpg"
+          },
+          {
+            title: "LLM Optimization & MLOps",
+            issuer: "MDS Talks",
+            date: "Jan 2025",
+            desc: "Focus sur le Fine-Tuning d'adapteurs et les pratiques LLMOps avancées.",
+            file: "/certificats/mds-llm.jpg"
+          },
+          {
+            title: "Women in AI Summit",
+            issuer: "Google / Women in AI",
+            date: "Déc 2024",
+            desc: "Participation au sommet sur l'innovation et l'éthique en IA.",
+            file: "/certificats/women-in-ai.jpg"
+          }
+        ]
+      },
       contact: {
         title: "Prête à collaborer",
         desc: "Je suis à la recherche d'un **stage de fin d'études de 4 à 6 mois** à partir de février 2026. Si vous cherchez une ingénieure passionnée par l'IA, discutons-en !",
@@ -89,7 +128,7 @@ const Portfolio = () => {
       }
     },
     en: {
-      nav: { skills: "Skills", projects: "Projects", contact: "Contact" },
+      nav: { skills: "Skills", projects: "Projects", certs: "Certifications", contact: "Contact" },
       hero: {
         badge: "Seeking End-of-Studies Internship (Feb 2026)",
         title: "Engineer",
@@ -143,6 +182,41 @@ const Portfolio = () => {
           }
         ]
       },
+      certs: {
+        title: "Certifications & Learning",
+        subtitle: "Continuous engagement in technology watch and mastering new tools.",
+        viewCert: "View Certificate",
+        items: [
+          {
+            title: "Big Data & AI Bootcamp",
+            issuer: "Dlytica Academy",
+            date: "Sept 2025",
+            desc: "Intensive 16-hour training on Big Data technologies and AI.",
+            file: "/certificats/dlytica.jpg"
+          },
+          {
+            title: "NLP & Text Mining",
+            issuer: "Simplilearn",
+            date: "Aug 2024",
+            desc: "Specialization in Natural Language Processing techniques.",
+            file: "/certificats/nlp-simplilearn.jpg"
+          },
+          {
+            title: "LLM Optimization & MLOps",
+            issuer: "MDS Talks",
+            date: "Jan 2025",
+            desc: "Focus on Fine-Tuning adapters and advanced LLMOps practices.",
+            file: "/certificats/mds-llm.jpg"
+          },
+          {
+            title: "Women in AI Summit",
+            issuer: "Google / Women in AI",
+            date: "Dec 2024",
+            desc: "Participation in the summit on innovation and ethics in AI.",
+            file: "/certificats/women-in-ai.jpg"
+          }
+        ]
+      },
       contact: {
         title: "Ready to Collaborate",
         desc: "I am looking for a **4-6 month end-of-studies internship** starting February 2026. If you are looking for an engineer passionate about AI, let's talk!",
@@ -153,9 +227,7 @@ const Portfolio = () => {
     }
   };
 
-  const t = content[lang]; // Sélectionne le contenu en fonction de la langue
-
-  // Données communes
+  const t = content[lang];
   const common = {
     social: {
       github: "https://github.com/Saadia-Akerkouch",
@@ -168,9 +240,73 @@ const Portfolio = () => {
   const toggleTheme = () => setDarkMode(!darkMode);
   const toggleLang = () => setLang(lang === 'fr' ? 'en' : 'fr');
 
+  // Composant Modal Interne
+  const CertificateModal = ({ cert, onClose }) => {
+    if (!cert) return null;
+    const isPdf = cert.file.toLowerCase().endsWith('.pdf');
+
+    return (
+      <div 
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+        onClick={onClose}
+      >
+        <div 
+          className="relative w-full max-w-5xl h-[85vh] bg-transparent flex flex-col items-center justify-center"
+          onClick={e => e.stopPropagation()} 
+        >
+           {/* Bouton de fermeture externe pour plus de clarté */}
+           <button 
+              onClick={onClose}
+              className="absolute -top-12 right-0 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            >
+              <X size={32} />
+            </button>
+
+          <div className="bg-white rounded-xl shadow-2xl overflow-hidden w-full h-full flex flex-col">
+            {/* Header de la modale */}
+            <div className="flex justify-between items-center p-4 border-b bg-gray-50 flex-shrink-0">
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">{cert.title}</h3>
+                <p className="text-sm text-gray-500">{cert.issuer}</p>
+              </div>
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-600"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Corps de la modale */}
+            <div className="flex-1 bg-gray-100 p-4 overflow-hidden relative flex items-center justify-center">
+              {isPdf ? (
+                <iframe 
+                  src={cert.file} 
+                  className="w-full h-full rounded-lg border border-gray-200"
+                  title={cert.title}
+                />
+              ) : (
+                <img 
+                  src={cert.file} 
+                  alt={cert.title} 
+                  className="max-w-full max-h-full object-contain shadow-lg"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900 text-slate-100' : 'bg-gray-50 text-gray-900'} font-sans`}>
       
+      {/* Affichage de la modale si un certificat est sélectionné */}
+      {selectedCert && (
+        <CertificateModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
+      )}
+
       {/* Navbar */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${darkMode ? 'bg-slate-900/90 border-b border-slate-800' : 'bg-white/90 border-b border-gray-200'} backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -178,6 +314,7 @@ const Portfolio = () => {
           <div className="flex items-center gap-4 md:gap-6">
             <a href="#about" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.skills}</a>
             <a href="#projects" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.projects}</a>
+            <a href="#certifications" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.certs}</a>
             <a href="#contact" className="hidden md:block hover:text-emerald-500 transition-colors text-sm font-medium">{t.nav.contact}</a>
             
             <div className="h-6 w-px bg-gray-500/30 hidden md:block"></div>
@@ -333,6 +470,47 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Certifications Section */}
+      <section id="certifications" className={`py-20 ${darkMode ? 'bg-slate-800/30' : 'bg-gray-50'}`}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">{t.certs.title}</h2>
+            <p className={`max-w-2xl mx-auto ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+              {t.certs.subtitle}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {t.certs.items.map((cert, index) => (
+              <div key={index} className={`flex flex-col p-6 rounded-xl border transition-all hover:scale-105 ${darkMode ? 'bg-slate-900 border-slate-700 hover:border-emerald-500/50' : 'bg-white border-gray-200 shadow-sm hover:border-emerald-500/50'}`}>
+                <div className="flex justify-between items-start mb-4">
+                  <Award className="text-emerald-500" size={28} />
+                  <span className={`text-xs font-mono px-2 py-1 rounded ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
+                    {cert.date}
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg mb-1 leading-tight">{cert.title}</h3>
+                <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                  {cert.issuer}
+                </div>
+                <p className={`text-sm leading-relaxed mb-6 flex-grow ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+                  {cert.desc}
+                </p>
+                
+                {/* Bouton Voir le certificat (Ouvre la modale maintenant) */}
+                <button 
+                  onClick={() => setSelectedCert(cert)}
+                  className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${darkMode ? 'text-emerald-400 hover:text-emerald-300' : 'text-emerald-600 hover:text-emerald-800'}`}
+                >
+                  <Eye size={14} />
+                  {t.certs.viewCert}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA / Footer */}
       <section id="contact" className={`py-24 px-6 text-center ${darkMode ? 'bg-slate-900 border-t border-slate-800' : 'bg-gray-50 border-t border-gray-200'}`}>
         <div className="max-w-3xl mx-auto">
@@ -340,7 +518,6 @@ const Portfolio = () => {
             <Mail size={32} />
           </div>
           <h2 className="text-4xl font-bold mb-6">{t.contact.title}</h2>
-          {/* Markdown-like rendering for bold text in description */}
           <p className={`text-lg mb-10 ${darkMode ? 'text-slate-400' : 'text-gray-600'}`}>
             {t.contact.desc.split('**').map((part, i) => 
               i % 2 === 1 ? <strong key={i} className="text-emerald-500 font-semibold">{part}</strong> : part
