@@ -19,7 +19,11 @@ import {
   Globe,
   Award,
   Eye,
-  X 
+  X,
+  MessageSquare,
+  Car,
+  ScanText,
+  Loader // Pour les certifs en cours
 } from 'lucide-react';
 
 const Portfolio = () => {
@@ -33,8 +37,8 @@ const Portfolio = () => {
       nav: { skills: "Compétences", projects: "Projets", certs: "Certifications", contact: "Contact" },
       hero: {
         badge: "Recherche stage fin d'études (Fév 2026)",
-        title: "Ingénieure",
-        subtitle: "AI & Data Science",
+        title: "Ingénieure Junior ",
+        subtitle: "en AI & Data Science",
         bio: "Élève ingénieure en Data Science & IoT à l'ENSIAS. Passionnée par l'IA générative, les systèmes intelligents et le MLOps. Je recherche un stage de fin d'études (4-6 mois) à partir de février 2026.",
         cta: "Me contacter",
         linkedin: "LinkedIn",
@@ -54,12 +58,26 @@ const Portfolio = () => {
         subtitle: "Expériences professionnelles et projets académiques démontrant l'application de l'IA à des problèmes réels.",
         viewGithub: "Voir tout sur GitHub",
         items: [
+           {
+            title: "Assistant de Traduction Anglais-Darija",
+            role: "NLP & Generative AI",
+            desc: "Système de traduction automatique bidirectionnel Anglais <-> Arabe Marocain (Darija). Développement d'un chatbot interactif supportant l'entrée vocale et textuelle.",
+            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
+            icon: <MessageSquare size={24} />
+          },
           {
-            title: "Plateforme de Recrutement Intelligente (LLMs)",
-            role: "Stage NLP @ 3D Smart Factory",
-            desc: "Développement Full-stack d'une application web intelligente automatisant le workflow de recrutement. Génération de tests personnalisés via LLM.",
-            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
-            icon: <User size={24} />
+            title: "Système de Smart Parking IoT",
+            role: "IoT & Computer Vision",
+            desc: "Application Android de réservation de parking temps réel. Reconnaissance de plaques d'immatriculation via Deep Learning (YOLOv8) et contrôle d'accès automatisé (Raspberry Pi).",
+            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
+            icon: <Car size={24} />
+          },
+          {
+            title: "Custom Named Entity Recognition (NER)",
+            role: "NLP Engineering",
+            desc: "Fine-tuning de modèles SpaCy pour reconnaître des entités spécifiques à un domaine (au-delà des modèles pré-entraînés). Pipeline réutilisable pour la personnalisation et l'évaluation.",
+            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
+            icon: <ScanText size={24} />
           },
           {
             title: "Plateforme ERP & Classification de CV",
@@ -88,20 +106,44 @@ const Portfolio = () => {
         title: "Certifications & Apprentissage",
         subtitle: "Un engagement constant dans la veille technologique et la maîtrise de nouveaux outils.",
         viewCert: "Voir le certificat",
+        inProgress: "En cours",
         items: [
           {
-            title: "Big Data & AI Bootcamp",
-            issuer: "Dlytica Academy",
-            date: "Sept 2025",
-            desc: "Formation intensive de 16h sur les technologies Big Data et l'IA.",
-            file: "/certificats/dlytica.jpg" 
+            title: "Spark Fundamentals",
+            issuer: "IBM Cognitive Class",
+            date: "2025", 
+            desc: "Traitement distribué, RDDs, DataFrames et Spark SQL.",
+            file: null, // Pas de fichier car en cours
+            status: "ongoing"
           },
           {
-            title: "NLP & Text Mining",
-            issuer: "Simplilearn",
-            date: "Août 2024",
-            desc: "Spécialisation sur les techniques de traitement du langage naturel.",
-            file: "/certificats/nlp-simplilearn.jpg"
+            title: "Hadoop 101",
+            issuer: "IBM Cognitive Class",
+            date: "2025", 
+            desc: "Architecture Big Data, HDFS, MapReduce et YARN.",
+            file: null, // Pas de fichier car en cours
+            status: "ongoing"
+          },
+          {
+            title: "Big Data 101",
+            issuer: "IBM Cognitive Class",
+            date: "Dec 2025", 
+            desc: "Fondamentaux du Big Data, Hadoop et écosystème Spark.",
+            file: "/certificats/ibm-bigdata.jpg" 
+          },
+          {
+            title: "Business Intelligence",
+            issuer: "MDS Talks",
+            date: "Jan 2025",
+            desc: "De la donnée à la décision : stratégies BI modernes.",
+            file: "/certificats/mds-bi.jpg"
+          },
+          {
+            title: "AI 101",
+            issuer: "MDS Talks",
+            date: "Dec 2024",
+            desc: "Fondamentaux et applications de l'Intelligence Artificielle.",
+            file: "/certificats/mds-ai101.jpg"
           },
           {
             title: "LLM Optimization & MLOps",
@@ -109,6 +151,13 @@ const Portfolio = () => {
             date: "Jan 2025",
             desc: "Focus sur le Fine-Tuning d'adapteurs et les pratiques LLMOps avancées.",
             file: "/certificats/mds-llm.jpg"
+          },
+          {
+            title: "NLP & Text Mining",
+            issuer: "Simplilearn",
+            date: "Août 2024",
+            desc: "Spécialisation sur les techniques de traitement du langage naturel.",
+            file: "/certificats/nlp-simplilearn.jpg"
           },
           {
             title: "Women in AI Summit",
@@ -152,12 +201,26 @@ const Portfolio = () => {
         subtitle: "Professional experiences and academic projects demonstrating the application of AI to real-world problems.",
         viewGithub: "View all on GitHub",
         items: [
+           {
+            title: "English-Darija Translation Assistant",
+            role: "NLP & Generative AI",
+            desc: "Automatic translation system between English and Moroccan Arabic. Developed interactive chatbot interface supporting text and voice input.",
+            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
+            icon: <MessageSquare size={24} />
+          },
           {
-            title: "Intelligent Recruitment Platform (LLMs)",
-            role: "NLP Intern @ 3D Smart Factory",
-            desc: "Full-stack development of an intelligent web app automating recruitment workflows. Personalized test generation using LLMs.",
-            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
-            icon: <User size={24} />
+            title: "Smart Parking System",
+            role: "IoT & Computer Vision",
+            desc: "Android app for real-time parking reservation. License plate recognition using Deep Learning (YOLOv8) and automated access control (Raspberry Pi).",
+            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
+            icon: <Car size={24} />
+          },
+          {
+            title: "Custom Named Entity Recognition (NER)",
+            role: "NLP Engineering",
+            desc: "Fine-tuned SpaCy models to recognize domain-specific entities beyond default pretrained sets. Built a reusable pipeline for customization.",
+            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
+            icon: <ScanText size={24} />
           },
           {
             title: "ERP Platform & CV Classification",
@@ -186,20 +249,44 @@ const Portfolio = () => {
         title: "Certifications & Learning",
         subtitle: "Continuous engagement in technology watch and mastering new tools.",
         viewCert: "View Certificate",
+        inProgress: "In Progress",
         items: [
           {
-            title: "Big Data & AI Bootcamp",
-            issuer: "Dlytica Academy",
-            date: "Sept 2025",
-            desc: "Intensive 16-hour training on Big Data technologies and AI.",
-            file: "/certificats/dlytica.jpg"
+            title: "Spark Fundamentals",
+            issuer: "IBM Cognitive Class",
+            date: "2025", 
+            desc: "Distributed processing, RDDs, DataFrames, and Spark SQL.",
+            file: null, 
+            status: "ongoing"
           },
           {
-            title: "NLP & Text Mining",
-            issuer: "Simplilearn",
-            date: "Aug 2024",
-            desc: "Specialization in Natural Language Processing techniques.",
-            file: "/certificats/nlp-simplilearn.jpg"
+            title: "Hadoop 101",
+            issuer: "IBM Cognitive Class",
+            date: "2025", 
+            desc: "Big Data Architecture, HDFS, MapReduce, and YARN.",
+            file: null, 
+            status: "ongoing"
+          },
+          {
+            title: "Big Data 101",
+            issuer: "IBM Cognitive Class",
+            date: "Dec 2025",
+            desc: "Big Data fundamentals, Hadoop, and Spark ecosystem.",
+            file: "/certificats/ibm-bigdata.jpg"
+          },
+          {
+            title: "Business Intelligence",
+            issuer: "MDS Talks",
+            date: "Jan 2025",
+            desc: "From data to decisions: modern BI strategies.",
+            file: "/certificats/mds-bi.jpg"
+          },
+           {
+            title: "AI 101",
+            issuer: "MDS Talks",
+            date: "Dec 2024",
+            desc: "Fundamentals and applications of Artificial Intelligence.",
+            file: "/certificats/mds-ai101.jpg"
           },
           {
             title: "LLM Optimization & MLOps",
@@ -207,6 +294,13 @@ const Portfolio = () => {
             date: "Jan 2025",
             desc: "Focus on Fine-Tuning adapters and advanced LLMOps practices.",
             file: "/certificats/mds-llm.jpg"
+          },
+          {
+            title: "NLP & Text Mining",
+            issuer: "Simplilearn",
+            date: "Aug 2024",
+            desc: "Specialization in Natural Language Processing techniques.",
+            file: "/certificats/nlp-simplilearn.jpg"
           },
           {
             title: "Women in AI Summit",
@@ -243,7 +337,7 @@ const Portfolio = () => {
   // Composant Modal Interne
   const CertificateModal = ({ cert, onClose }) => {
     if (!cert) return null;
-    const isPdf = cert.file.toLowerCase().endsWith('.pdf');
+    const isPdf = cert.file && cert.file.toLowerCase().endsWith('.pdf');
 
     return (
       <div 
@@ -279,18 +373,25 @@ const Portfolio = () => {
 
             {/* Corps de la modale */}
             <div className="flex-1 bg-gray-100 p-4 overflow-hidden relative flex items-center justify-center">
-              {isPdf ? (
-                <iframe 
-                  src={cert.file} 
-                  className="w-full h-full rounded-lg border border-gray-200"
-                  title={cert.title}
-                />
+              {cert.file ? (
+                isPdf ? (
+                  <iframe 
+                    src={cert.file} 
+                    className="w-full h-full rounded-lg border border-gray-200"
+                    title={cert.title}
+                  />
+                ) : (
+                  <img 
+                    src={cert.file} 
+                    alt={cert.title} 
+                    className="max-w-full max-h-full object-contain shadow-lg"
+                  />
+                )
               ) : (
-                <img 
-                  src={cert.file} 
-                  alt={cert.title} 
-                  className="max-w-full max-h-full object-contain shadow-lg"
-                />
+                <div className="text-center p-8">
+                  <Loader size={48} className="mx-auto text-emerald-500 mb-4 animate-spin" />
+                  <p className="text-gray-600 font-medium">Certification en cours d'acquisition.</p>
+                </div>
               )}
             </div>
           </div>
@@ -484,7 +585,15 @@ const Portfolio = () => {
             {t.certs.items.map((cert, index) => (
               <div key={index} className={`flex flex-col p-6 rounded-xl border transition-all hover:scale-105 ${darkMode ? 'bg-slate-900 border-slate-700 hover:border-emerald-500/50' : 'bg-white border-gray-200 shadow-sm hover:border-emerald-500/50'}`}>
                 <div className="flex justify-between items-start mb-4">
-                  <Award className="text-emerald-500" size={28} />
+                  <div className="flex items-center gap-2">
+                    <Award className="text-emerald-500" size={28} />
+                    {/* Badge En cours si nécessaire */}
+                    {cert.status === 'ongoing' && (
+                       <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${darkMode ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-700'}`}>
+                         {t.certs.inProgress}
+                       </span>
+                    )}
+                  </div>
                   <span className={`text-xs font-mono px-2 py-1 rounded ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
                     {cert.date}
                   </span>
@@ -497,13 +606,17 @@ const Portfolio = () => {
                   {cert.desc}
                 </p>
                 
-                {/* Bouton Voir le certificat (Ouvre la modale maintenant) */}
+                {/* Bouton Voir le certificat (Désactivé si en cours) */}
                 <button 
-                  onClick={() => setSelectedCert(cert)}
-                  className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${darkMode ? 'text-emerald-400 hover:text-emerald-300' : 'text-emerald-600 hover:text-emerald-800'}`}
+                  onClick={() => cert.file && setSelectedCert(cert)}
+                  disabled={!cert.file}
+                  className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors 
+                    ${!cert.file ? 'opacity-50 cursor-not-allowed text-gray-500' : 'cursor-pointer'} 
+                    ${darkMode ? (cert.file ? 'text-emerald-400 hover:text-emerald-300' : '') : (cert.file ? 'text-emerald-600 hover:text-emerald-800' : '')}
+                  `}
                 >
-                  <Eye size={14} />
-                  {t.certs.viewCert}
+                  {cert.file ? <Eye size={14} /> : <Loader size={14} className="animate-spin" />}
+                  {cert.file ? t.certs.viewCert : t.certs.inProgress}
                 </button>
               </div>
             ))}
