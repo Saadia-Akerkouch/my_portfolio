@@ -23,7 +23,8 @@ import {
   MessageSquare,
   Car,
   ScanText,
-  Loader // Pour les certifs en cours
+  ShieldAlert,
+  Loader
 } from 'lucide-react';
 
 const Portfolio = () => {
@@ -34,7 +35,7 @@ const Portfolio = () => {
   // --- CONTENU BILINGUE ---
   const content = {
     fr: {
-      nav: { skills: "Compétences", projects: "Projets", certs: "Certifications", contact: "Contact" },
+      nav: { skills: "Compétences", projects: "Réalisations", certs: "Certifications", contact: "Contact" },
       hero: {
         badge: "Recherche stage fin d'études (Fév 2026)",
         title: "Ingénieure Junior ",
@@ -48,37 +49,17 @@ const Portfolio = () => {
         title: "Arsenal Technique",
         subtitle: "Une combinaison solide de Data Science avancée, d'ingénierie logicielle et de pratiques MLOps modernes.",
         categories: [
-          { name: "IA & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG"] },
+          { name: "IA & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG", "Gradient Boosting"] },
           { name: "DevOps & Cloud", items: ["Docker", "Kubernetes", "Jenkins", "MLflow", "GitHub Actions", "SonarQube"] },
           { name: "Backend & Data", items: ["Python", "Java", "Flask", "FastAPI", "Neo4j (Graph DB)", "SQL", "NoSQL", "Hadoop/Spark"] }
         ]
       },
       projects: {
-        title: "Projets Sélectionnés",
-        subtitle: "Expériences professionnelles et projets académiques démontrant l'application de l'IA à des problèmes réels.",
+        title: "Réalisations & Expériences",
+        subtitle: "Un aperçu de mon travail académique et professionnel, trié par pertinence.",
         viewGithub: "Voir tout sur GitHub",
         items: [
-           {
-            title: "Assistant de Traduction Anglais-Darija",
-            role: "NLP & Generative AI",
-            desc: "Système de traduction automatique bidirectionnel Anglais <-> Arabe Marocain (Darija). Développement d'un chatbot interactif supportant l'entrée vocale et textuelle.",
-            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
-            icon: <MessageSquare size={24} />
-          },
-          {
-            title: "Système de Smart Parking IoT",
-            role: "IoT & Computer Vision",
-            desc: "Application Android de réservation de parking temps réel. Reconnaissance de plaques d'immatriculation via Deep Learning (YOLOv8) et contrôle d'accès automatisé (Raspberry Pi).",
-            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
-            icon: <Car size={24} />
-          },
-          {
-            title: "Custom Named Entity Recognition (NER)",
-            role: "NLP Engineering",
-            desc: "Fine-tuning de modèles SpaCy pour reconnaître des entités spécifiques à un domaine (au-delà des modèles pré-entraînés). Pipeline réutilisable pour la personnalisation et l'évaluation.",
-            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
-            icon: <ScanText size={24} />
-          },
+          // --- 1. STAGES (PRIORITÉ MAXIMALE) ---
           {
             title: "Plateforme ERP & Classification de CV",
             role: "Stage Data Eng. @ INTELLCAP",
@@ -86,6 +67,15 @@ const Portfolio = () => {
             tech: ["BERT", "Kubernetes", "Microservices", "Docker", "Agile"],
             icon: <Cpu size={24} />
           },
+          {
+            title: "Plateforme de Recrutement Intelligente (LLMs)",
+            role: "Stage NLP @ 3D Smart Factory",
+            desc: "Développement Full-stack d'une application web intelligente automatisant le workflow de recrutement. Génération de tests personnalisés via LLM.",
+            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
+            icon: <User size={24} />
+          },
+
+          // --- 2. PROJETS ACADÉMIQUES (TRIÉS PAR INTÉRÊT TECH) ---
           {
             title: "Exploration d'Articles Scientifiques (RAG)",
             role: "Projet Académique",
@@ -99,6 +89,34 @@ const Portfolio = () => {
             desc: "Pipeline complet : entraînement, déploiement et monitoring. Versioning des données/modèles et déploiement scalable.",
             tech: ["MLflow", "FastAPI", "Docker", "GitHub Actions", "SonarQube"],
             icon: <Terminal size={24} />
+          },
+          {
+            title: "Assistant de Traduction Anglais-Darija",
+            role: "NLP & Generative AI",
+            desc: "Système de traduction automatique bidirectionnel Anglais <-> Arabe Marocain (Darija). Développement d'un chatbot interactif supportant l'entrée vocale et textuelle.",
+            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
+            icon: <MessageSquare size={24} />
+          },
+          {
+            title: "Custom Named Entity Recognition (NER)",
+            role: "NLP Engineering",
+            desc: "Fine-tuning de modèles SpaCy pour reconnaître des entités spécifiques à un domaine (au-delà des modèles pré-entraînés). Pipeline réutilisable pour la personnalisation et l'évaluation.",
+            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
+            icon: <ScanText size={24} />
+          },
+          {
+            title: "Détection des Menaces Internes (CyberSec)",
+            role: "Projet Académique",
+            desc: "Analyse de logs utilisateurs pour détecter les comportements suspects. Implémentation d'un modèle Gradient Boosting via API Flask et visualisation des menaces sur Neo4j.",
+            tech: ["Gradient Boosting", "Flask", "Neo4j", "Cybersecurity"],
+            icon: <ShieldAlert size={24} />
+          },
+          {
+            title: "Système de Smart Parking IoT",
+            role: "IoT & Computer Vision",
+            desc: "Application Android de réservation de parking temps réel. Reconnaissance de plaques d'immatriculation via Deep Learning (YOLOv8) et contrôle d'accès automatisé (Raspberry Pi).",
+            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
+            icon: <Car size={24} />
           }
         ]
       },
@@ -113,7 +131,7 @@ const Portfolio = () => {
             issuer: "IBM Cognitive Class",
             date: "2025", 
             desc: "Traitement distribué, RDDs, DataFrames et Spark SQL.",
-            file: null, // Pas de fichier car en cours
+            file: null, 
             status: "ongoing"
           },
           {
@@ -121,13 +139,13 @@ const Portfolio = () => {
             issuer: "IBM Cognitive Class",
             date: "2025", 
             desc: "Architecture Big Data, HDFS, MapReduce et YARN.",
-            file: null, // Pas de fichier car en cours
+            file: null, 
             status: "ongoing"
           },
           {
             title: "Big Data 101",
             issuer: "IBM Cognitive Class",
-            date: "Dec 2025", 
+            date: "Dec 2025",
             desc: "Fondamentaux du Big Data, Hadoop et écosystème Spark.",
             file: "/certificats/ibm-bigdata.jpg" 
           },
@@ -177,11 +195,11 @@ const Portfolio = () => {
       }
     },
     en: {
-      nav: { skills: "Skills", projects: "Projects", certs: "Certifications", contact: "Contact" },
+      nav: { skills: "Skills", projects: "Achievements", certs: "Certifications", contact: "Contact" },
       hero: {
         badge: "Seeking End-of-Studies Internship (Feb 2026)",
-        title: "Engineer",
-        subtitle: "AI & Data Science",
+        title: "Junior Engineer",
+        subtitle: "in AI & Data Science",
         bio: "Engineering student in Data Science & IoT at ENSIAS. Passionate about Generative AI, intelligent systems, and MLOps. Seeking a 4-6 month internship starting February 2026.",
         cta: "Contact Me",
         linkedin: "LinkedIn",
@@ -191,37 +209,17 @@ const Portfolio = () => {
         title: "Technical Arsenal",
         subtitle: "A strong combination of advanced Data Science, Software Engineering, and modern MLOps practices.",
         categories: [
-          { name: "AI & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG"] },
+          { name: "AI & Data Science", items: ["TensorFlow", "PyTorch", "Scikit-learn", "Transformers", "LLMs (Llama3, BERT)", "LangChain", "RAG", "Gradient Boosting"] },
           { name: "DevOps & Cloud", items: ["Docker", "Kubernetes", "Jenkins", "MLflow", "GitHub Actions", "SonarQube"] },
           { name: "Backend & Data", items: ["Python", "Java", "Flask", "FastAPI", "Neo4j (Graph DB)", "SQL", "NoSQL", "Hadoop/Spark"] }
         ]
       },
       projects: {
-        title: "Selected Projects",
-        subtitle: "Professional experiences and academic projects demonstrating the application of AI to real-world problems.",
+        title: "Achievements & Work",
+        subtitle: "An overview of my academic and professional work, sorted by relevance.",
         viewGithub: "View all on GitHub",
         items: [
-           {
-            title: "English-Darija Translation Assistant",
-            role: "NLP & Generative AI",
-            desc: "Automatic translation system between English and Moroccan Arabic. Developed interactive chatbot interface supporting text and voice input.",
-            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
-            icon: <MessageSquare size={24} />
-          },
-          {
-            title: "Smart Parking System",
-            role: "IoT & Computer Vision",
-            desc: "Android app for real-time parking reservation. License plate recognition using Deep Learning (YOLOv8) and automated access control (Raspberry Pi).",
-            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
-            icon: <Car size={24} />
-          },
-          {
-            title: "Custom Named Entity Recognition (NER)",
-            role: "NLP Engineering",
-            desc: "Fine-tuned SpaCy models to recognize domain-specific entities beyond default pretrained sets. Built a reusable pipeline for customization.",
-            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
-            icon: <ScanText size={24} />
-          },
+          // --- 1. INTERNSHIPS (TOP PRIORITY) ---
           {
             title: "ERP Platform & CV Classification",
             role: "Data Eng. Intern @ INTELLCAP",
@@ -229,6 +227,15 @@ const Portfolio = () => {
             tech: ["BERT", "Kubernetes", "Microservices", "Docker", "Agile"],
             icon: <Cpu size={24} />
           },
+          {
+            title: "Intelligent Recruitment Platform (LLMs)",
+            role: "NLP Intern @ 3D Smart Factory",
+            desc: "Full-stack development of an intelligent web app automating recruitment workflows. Personalized test generation using LLMs.",
+            tech: ["Flask", "LlamaIndex", "Groq Cloud (LLAMA3)", "LlamaParse"],
+            icon: <User size={24} />
+          },
+
+          // --- 2. ACADEMIC PROJECTS (SORTED BY TECH INTEREST) ---
           {
             title: "IT Scientific Paper Exploration (RAG)",
             role: "Academic Project",
@@ -242,6 +249,34 @@ const Portfolio = () => {
             desc: "Built a complete pipeline for training, deployment, and monitoring. Data/Model versioning and scalable deployment.",
             tech: ["MLflow", "FastAPI", "Docker", "GitHub Actions", "SonarQube"],
             icon: <Terminal size={24} />
+          },
+          {
+            title: "English-Darija Translation Assistant",
+            role: "NLP & Generative AI",
+            desc: "Automatic translation system between English and Moroccan Arabic. Developed interactive chatbot interface supporting text and voice input.",
+            tech: ["NLP", "Text Mining", "Python", "Speech-to-Text"],
+            icon: <MessageSquare size={24} />
+          },
+          {
+            title: "Custom Named Entity Recognition (NER)",
+            role: "NLP Engineering",
+            desc: "Fine-tuned SpaCy models to recognize domain-specific entities beyond default pretrained sets. Built a reusable pipeline for customization.",
+            tech: ["SpaCy", "Python", "Data Annotation", "Model Tuning"],
+            icon: <ScanText size={24} />
+          },
+          {
+            title: "Internal Threat Detection (CyberSec)",
+            role: "Academic Project",
+            desc: "Analyzed user logs to detect suspicious behaviors. Implemented a Gradient Boosting model integrated into a Flask API, with anomaly visualization in Neo4j.",
+            tech: ["Gradient Boosting", "Flask", "Neo4j", "Cybersecurity"],
+            icon: <ShieldAlert size={24} />
+          },
+          {
+            title: "Smart Parking System",
+            role: "IoT & Computer Vision",
+            desc: "Android app for real-time parking reservation. License plate recognition using Deep Learning (YOLOv8) and automated access control (Raspberry Pi).",
+            tech: ["YOLOv8", "PyTorch", "Raspberry Pi", "Flask API", "Android"],
+            icon: <Car size={24} />
           }
         ]
       },
@@ -272,7 +307,7 @@ const Portfolio = () => {
             issuer: "IBM Cognitive Class",
             date: "Dec 2025",
             desc: "Big Data fundamentals, Hadoop, and Spark ecosystem.",
-            file: "/certificats/ibm-bigdata.jpg"
+            file: "/certificats/ibm-bigdata.jpg" 
           },
           {
             title: "Business Intelligence",
@@ -390,7 +425,7 @@ const Portfolio = () => {
               ) : (
                 <div className="text-center p-8">
                   <Loader size={48} className="mx-auto text-emerald-500 mb-4 animate-spin" />
-                  <p className="text-gray-600 font-medium">Certification en cours d'acquisition.</p>
+                  <p className="text-gray-600 font-medium">{lang === 'fr' ? "Certification en cours d'acquisition." : "Certification currently in progress."}</p>
                 </div>
               )}
             </div>
